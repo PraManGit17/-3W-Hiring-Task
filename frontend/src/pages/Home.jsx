@@ -4,12 +4,24 @@ import { TrendingUp } from 'lucide-react';
 import User from '../components/User';
 import Leaderboard from '../components/Leaderboard';
 import AddNewUser from '../components/AddNewUser';
+import ClaimHistory from '../components/ClaimHistory';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
   const [pointsClaimed, setPointsClaimed] = useState(null);
+  const [claimHistory, setClaimHistory] = useState([]);
+
+
+  const fetchClaimHistory = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/claim/history');
+      setClaimHistory(res.data);
+    } catch (error) {
+      console.error('Failed to fetch claim history', error);
+    }
+  };
 
   const handleClaim = async () => {
     if (!selectedUser?._id) return;
@@ -19,13 +31,13 @@ const Home = () => {
         userId: selectedUser._id,
       });
 
-      setPointsClaimed(res.data.pointsAwarded); 
-      setLeaderboard(res.data.leaderboard);
       fetchUsers();
+      fetchClaimHistory();
     } catch (error) {
       console.error('Claim failed:', error);
     }
   };
+
 
   const fetchUsers = async () => {
     try {
@@ -58,12 +70,13 @@ const Home = () => {
   useEffect(() => {
     fetchUsers();
     fetchLeaderboard();
+    fetchClaimHistory();
   }, []);
 
   return (
     <div className='h-screen w-full p-10 overflow-auto'>
       <div className='flex flex-col items-center justify-start space-y-10 w-full h-full'>
-      
+
         <div className='w-full flex items-end justify-center'>
           <h1 className='text-7xl font-semibold flex items-center gap-1'>
             Ran<span className='text-blue-500'>k</span>errr
@@ -87,6 +100,11 @@ const Home = () => {
 
         <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
           <Leaderboard leaderboard={leaderboard} />
+        </div>
+
+        <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
+          <ClaimHistory claimHistory={claimHistory} users={users} />
+
         </div>
       </div>
     </div>

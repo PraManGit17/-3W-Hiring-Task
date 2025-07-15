@@ -1,10 +1,11 @@
 
 
 import express from 'express';
-import { claimPoints } from '../controllers/claimController.js';
+import { claimPoints, HistoryofClaims } from '../controllers/claimController.js';
 
 const router = express.Router();
 
 router.post('/', claimPoints);
+router.get('/history', HistoryofClaims);
 
 export default router;

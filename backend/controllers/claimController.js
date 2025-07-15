@@ -35,5 +35,16 @@ export const claimPoints = async (req, res) => {
     totalPoints: user.totalPoints,
   }));
 
-  res.json( {newClaimHistory , pointsAwarded: randomPoints , leaderboard });
+  res.json({ newClaimHistory, pointsAwarded: randomPoints, leaderboard });
 }
+
+export const HistoryofClaims = async (req, res) => {
+  try {
+    const history = await ClaimHistory.find().sort({ timestamp: -1 });
+    res.status(200).json(history);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch history' });
+  }
+}
+

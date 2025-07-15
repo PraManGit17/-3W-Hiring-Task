@@ -29,8 +29,6 @@ const User = ({ users, selectedUser, setSelectedUser, handleClaim, PointsClaimed
   }));
 
 
-  console.log(PointsClaimed);
-
   return (
     <div className="bg-white w-full rounded p-4 relative">
       <h2 className="text-2xl font-semibold mb-4">Select a User</h2>
@@ -80,7 +78,7 @@ const User = ({ users, selectedUser, setSelectedUser, handleClaim, PointsClaimed
               <strong>Name:</strong> {selectedUser.name}
             </p>
             <p className="text-sm">
-              <strong>Total Points:</strong> {selectedUser.totalPoints}
+              <strong>Total Points:</strong> {selectedUser.totalPoints + PointsClaimed }
             </p>
             <button
               disabled={loading}
