@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
-const Leaderboard = () => {
+const Leaderboard = ( { leaderboard }) => {
 
-  const [leaderboard, setLeaderboard] = useState([]);
+  // const [leaderboard, setLeaderboard] = useState([]);
 
-  const fetchLeaderboard = async () => {
-    const res = await axios.get('http://localhost:5000/api/users/leaderboard');
-    setLeaderboard(res.data);
-  }
+  // const fetchLeaderboard = async () => {
+  //   const res = await axios.get('http://localhost:5000/api/users/leaderboard');
+  //   setLeaderboard(res.data);
+  // }
 
-  useEffect(() => {
-    fetchLeaderboard();
-  }, []);
-
+  
   return (
     <div className="bg-white w-full rounded p-4">
 

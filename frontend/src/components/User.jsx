@@ -3,24 +3,9 @@ import Select from 'react-select';
 import axios from 'axios';
 
 
-const User = () => {
-  const [users, setUsers] = useState([]);
+const User = ( {users, setUsers } ) => {
   const [selectedUser, setSelectedUser] = useState(null);
-
-
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get('http://localhost:5000/api/users');
-      setUsers(res.data);
-    } catch (error) {
-      console.error("Failed to fetch users", err);
-    }
-  }
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
+  
   const options = users.map((user) => ({
     value: user._id,
     label: user.name,
