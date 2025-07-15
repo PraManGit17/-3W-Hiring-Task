@@ -24,7 +24,6 @@ const User = ({ users, selectedUser, setSelectedUser, handleClaim, PointsClaimed
     setLoading(false);
     setShowToast(true);
 
-    // Animate toast and bar
     gsap.fromTo(
       toastRef.current,
       { opacity: 0, y: 20 },

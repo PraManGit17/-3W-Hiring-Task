@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const ClaimHistory = ({ claimHistory, users }) => {
@@ -9,13 +8,17 @@ const ClaimHistory = ({ claimHistory, users }) => {
     return user ? user.name : 'Unknown User';
   };
 
+  const recentClaims = [...claimHistory]
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) // newest first
+    .slice(0, 10); // top 10 recent
+
   return (
     <div className="bg-white w-full rounded p-4">
       <h2 className="text-2xl font-semibold mb-2">Claim History</h2>
       <hr className='w-full border-gray-300' />
 
       <div className='flex flex-col w-full mt-2 gap-3'>
-        {claimHistory.slice().reverse().map((claim) => (
+        {recentClaims.map((claim) => (
           <div
             key={claim._id}
             className='flex flex-col gap-1 w-full shadow shadow-gray-300 rounded-md'
