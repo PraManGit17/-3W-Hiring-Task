@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Select from 'react-select';
 import gsap from 'gsap';
 
-const User = ({ users, selectedUser, setSelectedUser, handleClaim, PointsClaimed }) => {
+const User = ({ users, selectedUser, setSelectedUser, handleClaim, PointsClaimed, setPointsClaimed }) => {
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [claimedUserName, setClaimedUserName] = useState('');
@@ -13,6 +13,7 @@ const User = ({ users, selectedUser, setSelectedUser, handleClaim, PointsClaimed
 
   const handleChange = (selectedOption) => {
     setSelectedUser(selectedOption.data);
+    setPointsClaimed('');
   };
 
   const Claim = async () => {
