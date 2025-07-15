@@ -40,3 +40,4 @@ const Leaderboard = ({ leaderboard }) => {
 }
 
 export default Leaderboard
+

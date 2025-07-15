@@ -1,3 +1,4 @@
+
 import { PartyPopperIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import Select from 'react-select';
@@ -28,6 +29,8 @@ const User = ({ users, selectedUser, setSelectedUser, handleClaim, PointsClaimed
     data: user,
   }));
 
+
+  console.log(PointsClaimed);
 
   return (
     <div className="bg-white w-full rounded p-4 relative">
@@ -78,7 +81,7 @@ const User = ({ users, selectedUser, setSelectedUser, handleClaim, PointsClaimed
               <strong>Name:</strong> {selectedUser.name}
             </p>
             <p className="text-sm">
-              <strong>Total Points:</strong> {selectedUser.totalPoints + PointsClaimed }
+              <strong>Total Points:</strong> {selectedUser.totalPoints + PointsClaimed}
             </p>
             <button
               disabled={loading}

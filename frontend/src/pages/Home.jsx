@@ -14,6 +14,7 @@ const Home = () => {
   const [claimHistory, setClaimHistory] = useState([]);
 
 
+
   const fetchClaimHistory = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/claim/history');
@@ -23,6 +24,8 @@ const Home = () => {
     }
   };
 
+
+
   const handleClaim = async () => {
     if (!selectedUser?._id) return;
 
@@ -31,13 +34,14 @@ const Home = () => {
         userId: selectedUser._id,
       });
 
+      setPointsClaimed(res.data.pointsAwarded);
+      setLeaderboard(res.data.leaderboard);
       fetchUsers();
       fetchClaimHistory();
     } catch (error) {
       console.error('Claim failed:', error);
     }
   };
-
 
   const fetchUsers = async () => {
     try {
@@ -102,9 +106,8 @@ const Home = () => {
           <Leaderboard leaderboard={leaderboard} />
         </div>
 
-        <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
+        <div className="w-full sm:w-[80%] md:w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600">
           <ClaimHistory claimHistory={claimHistory} users={users} />
-
         </div>
       </div>
     </div>
