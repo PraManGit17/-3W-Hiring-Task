@@ -1,6 +1,7 @@
 import React from 'react'
 import { TrendingUp } from 'lucide-react';
 import User from '../components/User';
+import Leaderboard from '../components/Leaderboard';
 
 const Home = () => {
   return (
@@ -10,14 +11,15 @@ const Home = () => {
 
         <div className='w-full flex items-end justify-center'>
           <p className='text-7xl font-semibold flex'>Ran<div className='text-blue-500'>k</div>errr</p>
-          <TrendingUp size={60} className='rotate-345' color='blue'/>
+          <TrendingUp size={60} className='rotate-345' color='blue' />
         </div>
 
-        <div className='w-[60%] flex flex-col items-start'>
-          <div className='text-4xl font-medium leading-relaxed'>User</div>
-          <hr className='rounded-full w-full h-1 bg-gray-800 mb-2 '></hr>
-
+        <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600 '>
           <User />
+        </div>
+
+        <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600 '>
+          <Leaderboard />
         </div>
       </div>
     </div>
