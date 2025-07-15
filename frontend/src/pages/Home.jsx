@@ -8,48 +8,77 @@ import AddNewUser from '../components/AddNewUser';
 const Home = () => {
   const [users, setUsers] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
+  const [selectedUser, setSelectedUser] = useState('');
+  const [pointsClaimed, setPointsClaimed] = useState(null);
 
+  const handleClaim = async () => {
+    if (!selectedUser?._id) return;
+
+    try {
+      const res = await axios.post('http://localhost:5000/api/claim', {
+        userId: selectedUser._id,
+      });
+
+      setPointsClaimed(res.data.pointsAwarded); 
+      setLeaderboard(res.data.leaderboard);
+      fetchUsers();
+    } catch (error) {
+      console.error('Claim failed:', error);
+    }
+  };
 
   const fetchUsers = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/users');
       setUsers(res.data);
     } catch (error) {
-      console.error("Failed to fetch users", error);
+      console.error('Failed to fetch users', error);
     }
   };
 
-
   const fetchLeaderboard = async () => {
-    const res = await axios.get('http://localhost:5000/api/users/leaderboard');
-    setLeaderboard(res.data);
-  }
-
-
+    try {
+      const res = await axios.get('http://localhost:5000/api/users/leaderboard');
+      setLeaderboard(res.data);
+    } catch (error) {
+      console.error('Failed to fetch leaderboard', error);
+    }
+  };
 
   const AddUser = async (name) => {
-    await axios.post('http://localhost:5000/api/users', { name })
-    fetchUsers();
-    fetchLeaderboard();
-  }
+    try {
+      await axios.post('http://localhost:5000/api/users', { name });
+      fetchUsers();
+      fetchLeaderboard();
+    } catch (error) {
+      console.error('Failed to add user', error);
+    }
+  };
 
   useEffect(() => {
     fetchUsers();
     fetchLeaderboard();
   }, []);
 
-  
   return (
-    <div className='h-screen w-full p-10'>
+    <div className='h-screen w-full p-10 overflow-auto'>
       <div className='flex flex-col items-center justify-start space-y-10 w-full h-full'>
-
+      
         <div className='w-full flex items-end justify-center'>
-          <p className='text-7xl font-semibold flex'>Ran<div className='text-blue-500'>k</div>errr</p>
+          <h1 className='text-7xl font-semibold flex items-center gap-1'>
+            Ran<span className='text-blue-500'>k</span>errr
+          </h1>
           <TrendingUp size={60} className='rotate-345' color='blue' />
         </div>
 
         <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
-          <User users={users} setUsers={setUsers} />
+          <User
+            users={users}
+            selectedUser={selectedUser}
+            setSelectedUser={setSelectedUser}
+            handleClaim={handleClaim}
+            PointsClaimed={pointsClaimed}
+          />
         </div>
 
         <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
@@ -57,9 +86,8 @@ const Home = () => {
         </div>
 
         <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
-          <Leaderboard leaderboard={leaderboard}/>
+          <Leaderboard leaderboard={leaderboard} />
         </div>
-
       </div>
     </div>
   );

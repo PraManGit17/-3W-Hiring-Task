@@ -3,7 +3,7 @@ import Home from './pages/Home'
 
 const App = () => {
   return (
-    <div className='text-4xl  bg-gray-200'>
+    <div>
       <Home />
     </div>
   )

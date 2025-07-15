@@ -35,5 +35,5 @@ export const claimPoints = async (req, res) => {
     totalPoints: user.totalPoints,
   }));
 
-  res.json( {newClaimHistory , pointsAwarded: randomPoints ,leaderboard });
+  res.json( {newClaimHistory , pointsAwarded: randomPoints , leaderboard });
 }
