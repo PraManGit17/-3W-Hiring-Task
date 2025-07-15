@@ -13,8 +13,6 @@ const Home = () => {
   const [pointsClaimed, setPointsClaimed] = useState(null);
   const [claimHistory, setClaimHistory] = useState([]);
 
-
-
   const fetchClaimHistory = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/claim/history');
@@ -23,8 +21,6 @@ const Home = () => {
       console.error('Failed to fetch claim history', error);
     }
   };
-
-
 
   const handleClaim = async () => {
     if (!selectedUser?._id) return;
@@ -78,17 +74,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='h-screen w-full p-10 overflow-auto'>
-      <div className='flex flex-col items-center justify-start space-y-10 w-full h-full'>
+    <div className="h-screen w-full p-4 sm:p-6 md:p-10 overflow-auto">
+      <div className="flex flex-col items-center justify-start space-y-10 w-full h-full">
 
-        <div className='w-full flex items-end justify-center'>
-          <h1 className='text-7xl font-semibold flex items-center gap-1'>
-            Ran<span className='text-blue-500'>k</span>errr
+        <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold flex items-center gap-1">
+            Ran<span className="text-blue-500">k</span>errr
           </h1>
-          <TrendingUp size={60} className='rotate-345' color='blue' />
+          <TrendingUp size={40} className="rotate-345 sm:size-[60px]" color="blue" />
         </div>
 
-        <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
+        <div className="w-full sm:w-[80%] md:w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600">
           <User
             users={users}
             selectedUser={selectedUser}
@@ -98,11 +94,11 @@ const Home = () => {
           />
         </div>
 
-        <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
+        <div className="w-full sm:w-[80%] md:w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600">
           <AddNewUser AddUser={AddUser} />
         </div>
 
-        <div className='w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600'>
+        <div className="w-full sm:w-[80%] md:w-[60%] flex flex-col rounded-lg shadow-md shadow-gray-600">
           <Leaderboard leaderboard={leaderboard} />
         </div>
 
